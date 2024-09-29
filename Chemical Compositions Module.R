@@ -130,9 +130,10 @@ generate_protein_fragment_compositions <- function(precursor_composition, neutra
   if(neutral_losses){
     #neutral loss fragments
     neutral_losses <- data.table(
-      ion_type = c("b", "b", "y", "y"),
-      element = c("H", "O", "H", "O"),
-      amount = c(2, 1, 2, 1)
+      loss_type = c("-H2O", "-H2O", "-H2O", "-H2O", "-NH3", "-NH3", "-NH3", "-NH3"),
+      ion_type = c("b", "b", "y", "y", "b", "b", "y", "y"),
+      element = c("H", "O", "H", "O", "N", "H", "N", "H"),
+      amount = c(2, 1, 2, 1, 1, 3, 1, 3)
     )
     
     neutral_loss_fragments <- merge(fragment_compositions[str_detect(ion_type, "[by]")],
@@ -140,9 +141,9 @@ generate_protein_fragment_compositions <- function(precursor_composition, neutra
       by = c("element", "ion_type"), allow.cartesian = T, all.x = T
     )[is.na(amount.y), amount.y := 0
       ][, amount := amount.x-amount.y
-      ][, .(ion_type, position, element, amount)
+      ][, .(ion_type, position, element, amount, loss_type)
       ][order(ion_type, position, element)
-      ][, ion_type := paste0(ion_type, "-H2O") #This will break down with more neutral losses...
+      ][, ion_type := paste0(ion_type, loss_type)
       ][, .SD[all(amount >= 0)], by = .(ion_type, position), .SDcols = c("amount", "element")]
 
     fragment_compositions <- rbind(fragment_compositions, neutral_loss_fragments)
