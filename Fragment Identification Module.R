@@ -70,8 +70,8 @@ identify_fragments <- function(fragment_mzs, spectrum, mass_tolerance = 10){
   ][, .(ion_type, position, charge, nuclide, prob, theoretical_mz, centroid_index)]
   
   hydrogen_shifts <- data.table(
-      ion_type = c("a", "b", "b-H2O", "c", "x", "y", "y-H2O", "z"),
-      shift = list(c(1, 2), 0, 0, c(-1, 0, 1), c(1, 2), c(-1, -2), c(-1, -2), c(-1))
+      ion_type = c("a", "b", "b-H2O", "b-NH3", "c", "x", "y", "y-H2O", "y-NH3", "z"),
+      shift = list(c(1, 2), 0, 0, 0, c(-1, 0, 1), c(1, 2), c(-1, -2), c(-1, -2), c(-1, -2), c(-1))
     )
   
   
