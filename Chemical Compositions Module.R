@@ -151,9 +151,9 @@ generate_protein_fragment_compositions <- function(precursor_composition, neutra
   }
   
   hydrogen_adjustments <- data.table(
-    ion_type = c("a", "b", "b-H2O", "c", "x", "y", "y-H2O", "z"),
+    ion_type = c("a", "b", "b-H2O", "b-NH3", "c", "x", "y", "y-H2O", "y-NH3", "z"),
     element = c("H"),
-    amount = c(-1, -1, -1, 1, -1, 1, 1, 0)
+    amount = c(-1, -1, -1, -2, 1, -1, 1, 1, 1, 0)
   )
   
   fragment_compositions <- merge(
