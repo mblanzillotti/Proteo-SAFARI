@@ -79,11 +79,11 @@ generate_ion_label <- function(ion_type, position, charge){
   paste0(
     str_remove(ion_type, "-H2O"), 
     "[", position, "]",
-    ifelse(str_detect(ion_type, "-H2O"),
+    ifelse(str_detect(ion_type, "-((H2O)|(NH3))"),
            "-H2O", ""
     ),
     "^{\n", 
-    ifelse(str_detect(ion_type, "-H2O"),
+    ifelse(str_detect(ion_type, "-((H2O)|(NH3))"),
            "",
            rep("~", ceiling(log10(position+1))+1) %>% paste0(collapse = "")
     ),
